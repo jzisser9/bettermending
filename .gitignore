@@ -1,0 +1,15 @@
+server/cache
+server/logs
+server/crash-reports
+server/plugins/ProtocolLib
+server/world
+server/world_nether
+server/world_the_end
+eula.txt
+server.properties
+target
+.idea
+.settings
+bettermending.iml
+server/usercache.json
+server/plugins/bettermending*.jar

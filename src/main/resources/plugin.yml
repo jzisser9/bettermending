@@ -1,0 +1,5 @@
+api-version: 1.13
+main: com.github.hornta.bettermending.BetterMending
+version: ${project.version}
+name: BetterMending
+depend: [ProtocolLib]
