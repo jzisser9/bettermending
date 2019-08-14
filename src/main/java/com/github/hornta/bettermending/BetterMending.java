@@ -6,6 +6,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class BetterMending extends JavaPlugin implements Listener {
   private Map<Integer, ExperienceOrb> orbs = new HashMap<>();
   private ExperienceOrb current;
+  private Metrics metrics;
 
   private Set<Player> ignoreMendingEvent = new HashSet<>();
   private ProtocolManager protocolManager;
@@ -126,6 +128,7 @@ public class BetterMending extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
+    metrics = new Metrics(this);
     protocolManager = ProtocolLibrary.getProtocolManager();
     protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.HIGHEST, PacketType.Play.Server.COLLECT) {
       @Override

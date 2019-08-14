@@ -6,7 +6,7 @@
 
     <groupId>com.github.hornta</groupId>
     <artifactId>bettermending</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -40,12 +40,18 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <!--minimizeJar>true</minimizeJar>-->
+                            <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>com.github.hornta.bettermending</shadedPattern>
+                        </relocation>
+                    </relocations>
                 </configuration>
             </plugin>
             <plugin>
@@ -96,6 +102,10 @@
             <id>dmulloy2-repo</id>
             <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
         </repository>
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -110,6 +120,12 @@
             <artifactId>ProtocolLib</artifactId>
             <version>4.4.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.5</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
