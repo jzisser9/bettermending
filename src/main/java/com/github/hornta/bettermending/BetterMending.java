@@ -8,6 +8,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -110,6 +111,10 @@ public class BetterMending extends JavaPlugin implements Listener {
       .filter((ItemStack itemStack) -> {
         // not sure if this check is neccessary but best to be on the safe side
         if(!(itemStack.getItemMeta() instanceof Damageable)) {
+          return false;
+        }
+
+        if (!itemStack.containsEnchantment(Enchantment.MENDING)) {
           return false;
         }
 
