@@ -4,5 +4,11 @@
     "name": "hornta",
     "level": 4,
     "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "c7463a30-29d6-4714-aad9-6e9a409ebfd3",
+    "name": "cullago",
+    "level": 4,
+    "bypassesPlayerLimit": false
   }
 ]
