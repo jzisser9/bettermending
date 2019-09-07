@@ -29,6 +29,8 @@ public class BetterMending extends JavaPlugin implements Listener {
   private Map<Integer, ExperienceOrb> orbs = new HashMap<>();
   private ExperienceOrb current;
   private Metrics metrics;
+  private boolean debug = false;
+  private DamagedComparator damagedComparator = new DamagedComparator();
 
   private Set<UUID> ignoreMendingEvent = new HashSet<>();
   private ProtocolManager protocolManager;
@@ -89,7 +91,7 @@ public class BetterMending extends JavaPlugin implements Listener {
     if(itemToBeMended == null) {
       return new MendResult(false, experience);
     }
-    //event.setAmount(0);
+
     Damageable damageable = (Damageable) itemToBeMended.getItemMeta();
     int repairAmount = Math.min(experience * 2, damageable.getDamage());
 
@@ -100,16 +102,22 @@ public class BetterMending extends JavaPlugin implements Listener {
       return new MendResult(false, experience);
     }
 
+    int oldDamage = damageable.getDamage();
+
     repairAmount = mendEvent.getRepairAmount();
     damageable.setDamage(damageable.getDamage() - repairAmount);
     itemToBeMended.setItemMeta((ItemMeta) damageable);
+
+    if(debug) {
+      player.sendMessage(itemToBeMended.getType().name() + ": " + (itemToBeMended.getType().getMaxDurability() - oldDamage) + " / " + itemToBeMended.getType().getMaxDurability() + " -> " + (itemToBeMended.getType().getMaxDurability() - damageable.getDamage()) + " / " + itemToBeMended.getType().getMaxDurability());
+    }
 
     int newExp = experience - repairAmount / 2;
     if (newExp < 0) {
       newExp = 0;
     }
 
-    return new MendResult(newExp == 0 ? false : true, newExp);
+    return new MendResult(newExp != 0, newExp);
   }
 
   private ItemStack getRandomMendableItem(Player player) {
@@ -144,8 +152,16 @@ public class BetterMending extends JavaPlugin implements Listener {
         return null;
       }
 
+      filtered.sort(damagedComparator);
+
+      if(debug) {
+        for(ItemStack is : filtered) {
+          player.sendMessage(is.getType().name() + " - " + ((Damageable)is.getItemMeta()).getDamage() / is.getType().getMaxDurability());
+        }
+      }
+
       // randomly choose an item to be mended
-      return filtered.get(new Random().nextInt(filtered.size()));
+      return filtered.get(0);
     } catch (Exception e) {
       getLogger().log(Level.SEVERE, e.getMessage(), e);
     }
