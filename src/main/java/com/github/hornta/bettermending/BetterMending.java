@@ -123,13 +123,8 @@ public class BetterMending extends JavaPlugin implements Listener {
   private ItemStack getRandomMendableItem(Player player) {
     try {
       // collect all items that can be mended
-      List<ItemStack> itemStacks = new ArrayList<>();
-      itemStacks.add(player.getInventory().getHelmet());
-      itemStacks.add(player.getInventory().getChestplate());
-      itemStacks.add(player.getInventory().getLeggings());
-      itemStacks.add(player.getInventory().getBoots());
-      itemStacks.add(player.getInventory().getItemInMainHand());
-      itemStacks.add(player.getInventory().getItemInOffHand());
+      List<ItemStack> itemStacks = Arrays.asList(player.getInventory().getContents());
+      
       List<ItemStack> filtered = itemStacks
         .stream()
         .filter(Objects::nonNull)
