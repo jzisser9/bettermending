@@ -1,6 +1,6 @@
 A fork of the bettermending Minecraft plugin by hornta.
 
-This version of bettermending expands the list of valid repairable items when an Experience Orb is picked up. Now, items in the player's hotbar are also eligible for repair if they have the mending enchant. This makes it so you don't have to swap held items when picking up an experience orb.
+This version of bettermending expands the list of valid repairable items when an Experience Orb is picked up. Now, any item in the player's inventory with the Mending enchantment will be eligible for repair when an XP orb is picked up.
 
 # bettermending
 Improve the Mending mechanic by only mending damaged items while still keeping the native logic.
